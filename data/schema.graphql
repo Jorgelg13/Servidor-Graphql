@@ -1,0 +1,57 @@
+type Cliente{
+        id: ID
+        nombre: String
+        apellido: String
+        edad: Int
+        empresa: String
+        emails: [Email]
+        tipo:TipoCliente
+        pedidos:[Pedido]
+    }
+    type Email{
+        email:String
+    }
+
+    type Pedido{
+        producto: String
+        precio: Int
+    }
+
+    enum TipoCliente{
+        BASICO
+        PREMIUM
+    }
+
+    type Query{
+        getClientes(limite: Int,offset:Int):[Cliente]
+        getCliente(id: ID) : Cliente
+        totalClientes: String
+    }
+
+    input PedidoInput{
+        producto: String
+        precio: Int
+    }
+
+    input EmailInput{
+        email: String
+    }
+
+    input ClienteInput{
+        id: ID
+        nombre: String!
+        apellido: String!
+        edad: Int
+        empresa: String
+        emails: [EmailInput]
+        tipo:TipoCliente
+        pedidos:[PedidoInput]
+    }
+
+    """ mutacion para crear nuevos clientes """
+    type Mutation {
+        #Nombre del resolverm Input con datos y valor que retorna
+        crearCliente(input: ClienteInput) :Cliente
+        actualizarCliente(input: ClienteInput):Cliente
+        eliminarCliente(id: ID!): String 
+    }
